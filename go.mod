@@ -11,6 +11,7 @@ require (
 	github.com/fatih/color v1.7.0
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-contrib/gzip v0.0.2-0.20200226035851-25bef2ef21e8
+	github.com/gin-contrib/location v0.0.2
 	github.com/gin-contrib/sessions v0.0.1
 	github.com/gin-contrib/static v0.0.0-20191128031702-f81c604d8ac2
 	github.com/gin-gonic/gin v1.5.0

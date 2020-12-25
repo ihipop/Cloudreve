@@ -1,6 +1,8 @@
 package model
 
 import (
+	"github.com/gin-contrib/location"
+	"github.com/gin-gonic/gin"
 	"net/url"
 	"strconv"
 
@@ -75,6 +77,22 @@ func GetSiteURL() *url.URL {
 		base, _ = url.Parse("https://cloudreve.org")
 	}
 	return base
+}
+
+// GetSiteURL 获取请求内的站点地址  并以设置内的站点地址为默认配置
+func GetContextURL(c *gin.Context) *url.URL {
+	base := GetSiteURL();
+	//根据访问的上下文获取完整路径而不是设置里面的站点路径 这样就能支持多域名
+	//defaultConfig := location.DefaultConfig()
+	location.New(location.Config{
+		Host:   base.Host,
+		Scheme: base.Scheme,
+		Headers: location.Headers {
+			Scheme: "X-Forwarded-Proto",
+			Host:   "X-Forwarded-Host",//It's an old bug https://github.com/gin-contrib/location/pull/13/files
+		},
+	})(c)
+	return location.Get(c)
 }
 
 // GetIntSetting 获取整形设置值，如果转换失败则返回默认值defaultVal
