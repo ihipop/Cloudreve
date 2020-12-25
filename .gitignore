@@ -27,3 +27,5 @@ version.lock
 *.ini
 conf/conf.ini
 /statik/
+
+/vendor/
